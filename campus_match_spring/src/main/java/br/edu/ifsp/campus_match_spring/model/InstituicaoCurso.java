@@ -18,7 +18,6 @@ public class InstituicaoCurso {
     @JoinColumn(name = "id_curso", nullable = false)
     private Curso curso;
 
-    // Getters e setters
     public Long getId() {
         return id;
     }
