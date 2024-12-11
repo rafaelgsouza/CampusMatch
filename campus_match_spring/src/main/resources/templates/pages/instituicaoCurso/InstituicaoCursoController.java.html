@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Relacionamentos Instituição-Curso</title>
+</head>
+<body>
+    <h1>Relacionamentos Instituição-Curso</h1>
+    <a th:href="@{/instituicaoCurso/new}">Novo Relacionamento</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Instituição</th>
+                <th>Curso</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="relacionamento : ${relacionamentos}">
+                <td th:text="${relacionamento.instituicao.nome}"></td>
+                <td th:text="${relacionamento.curso.nome}"></td>
+                <td>
+                    <a th:href="@{/instituicaoCurso/delete/{id}(id=${relacionamento.id})}">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
