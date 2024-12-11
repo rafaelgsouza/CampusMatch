@@ -8,12 +8,12 @@
     <form th:action="@{/instituicaoCurso/save}" th:object="${instituicaoCurso}" method="post">
         <label for="instituicao">Instituição:</label>
         <select th:field="*{instituicao}" id="instituicao">
-            <option th:each="instituicao : ${instituicoes}" th:value="${instituicao}" th:text="${instituicao.nome}"></option>
+            <option th:each="instituicao : ${instituicoes}" th:value="${instituicao.id}" th:text="${instituicao.nome}"></option>
         </select>
         <br/>
         <label for="curso">Curso:</label>
         <select th:field="*{curso}" id="curso">
-            <option th:each="curso : ${cursos}" th:value="${curso}" th:text="${curso.nome}"></option>
+            <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
         </select>
         <br/>
         <button type="submit">Salvar</button>

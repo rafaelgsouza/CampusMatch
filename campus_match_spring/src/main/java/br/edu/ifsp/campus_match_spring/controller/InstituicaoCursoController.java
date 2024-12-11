@@ -25,7 +25,7 @@ public class InstituicaoCursoController {
 
     @RequestMapping("index")
     public String index(Model model) {
-        model.addAttribute("instituicaoCurso", instituicaoCursoRepo.findAll());
+        model.addAttribute("instituicaoCursos", instituicaoCursoRepo.findAll());
         return "/pages/instituicaoCurso/InstituicaoCursoIndex";
     }
 

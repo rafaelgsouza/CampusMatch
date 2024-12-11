@@ -15,11 +15,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="relacionamento : ${relacionamentos}">
-                <td th:text="${relacionamento.instituicao.nome}"></td>
-                <td th:text="${relacionamento.curso.nome}"></td>
+            <tr th:each="instituicaoCurso : ${instituicaoCursos}">
+                <td th:text="${instituicaoCurso.instituicao.nome}"></td>
+                <td th:text="${instituicaoCurso.curso.nome}"></td>
                 <td>
-                    <a th:href="@{/instituicaoCurso/delete/{id}(id=${relacionamento.id})}">Excluir</a>
+                    <a th:href="@{/instituicaoCurso/delete/{id}(id=${instituicaoCurso.id})}">Excluir</a>
                 </td>
             </tr>
         </tbody>
