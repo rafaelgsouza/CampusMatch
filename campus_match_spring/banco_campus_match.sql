@@ -1,4 +1,4 @@
--- drop database campusmatch;
+ -- drop database campusmatch;
 
 -- select * from estudante;
 
@@ -89,9 +89,10 @@ alter table instituicao_infraestrutura add foreign key (id_instituicao) referenc
 alter table instituicao_infraestrutura add foreign key (id_infraestrutura) references infraestrutura(id);
 
 create table if not exists instituicao_curso(
+	id bigint not null auto_increment,
 	id_instituicao bigint,
     id_curso bigint,
-    constraint pk_id_inst_curso primary key (id_instituicao, id_curso)
+    constraint pk_id_inst_curso primary key (id)
 );
 alter table instituicao_curso add foreign key (id_instituicao) references instituicao(id);
 alter table instituicao_curso add foreign key (id_curso) references curso(id);
