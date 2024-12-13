@@ -3,8 +3,12 @@ package br.edu.ifsp.campus_match_spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +18,7 @@ import br.edu.ifsp.campus_match_spring.model.Estudante;
 import br.edu.ifsp.campus_match_spring.repository.EstudanteRepo;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/estudantes")
 public class EstudanteController {
 
@@ -30,6 +35,15 @@ public class EstudanteController {
 		return "/pages/estudante/EstudanteIndex";
 	}
 	
+	@RequestMapping("get_all")
+	public ResponseEntity<List<Estudante>> getAllStudents(){
+		
+		List<Estudante> estudantes = estudanteRepo.findAll();
+		
+		return new ResponseEntity<>(estudantes, HttpStatus.OK);
+		
+	}
+	
 	@RequestMapping("new")
 	public String newEstudante(Model model) {
 		
@@ -39,11 +53,11 @@ public class EstudanteController {
 	}
 	
 	@PostMapping("save")
-	public String saveEstudante(@ModelAttribute Estudante estudante) {
+	public ResponseEntity<String> saveEstudante(@ModelAttribute Estudante estudante) {
 		
 		estudanteRepo.save(estudante);
 		
-		return "redirect:index";
+		return new ResponseEntity<>("Estudante salvo", HttpStatus.OK);
 	}
 	
 	@RequestMapping("editEstudante/{id}")

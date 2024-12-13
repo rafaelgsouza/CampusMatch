@@ -1,0 +1,40 @@
+<main>
+    <div>
+        <h2>Registro de Estudante</h2>
+    </div>
+    
+    <div>
+        <form class="pure-form pure-form-aligned">
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" placeholder="Digite um nome" name="nome" [(ngModel)]="this.estudante.nome">
+                </div>
+                <div class="pure-control-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" placeholder="Digite um email" name="email" [(ngModel)]="this.estudante.email">
+                </div>
+                <div class="pure-control-group">
+                    <label for="senha">Senha:</label>
+                    <input type="text" id="senha" placeholder="Digite um senha" name="senha" [(ngModel)]="this.estudante.senha">
+                </div>
+                <div class="pure-control-group">
+                    <label for="cep">Cep:</label>
+                    <input type="text" id="cep" placeholder="Digite um cep" name="cep" [(ngModel)]="this.estudante.cep">
+                </div>
+                <div class="pure-control-group">
+                    <label for="dtNasc">Data Nascimento:</label>
+                    <input type="date" id="dtNasc" name="dtNasc"
+                        [ngModel]="this.estudante.dataNascimento | date: 'yyyy-MM-dd'" 
+                        (ngModelChange)="this.estudante.dataNascimento=$event">
+                </div>
+        
+                <div class="pure-controls">
+                    <button type="button" id="salvar" (click)="salvar()" class="pure-button pure-button-primary">Salvar</button>
+                    <button type="reset" id="limpar" class="pure-button pure-button-primary">Limpar</button>
+                    <button type="button" id="voltar" routerLink="/estudantes" class="pure-button pure-button-primary">Voltar</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</main>
