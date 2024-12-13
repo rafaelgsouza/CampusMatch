@@ -81,9 +81,10 @@ alter table favorito add foreign key (id_estudante) references estudante(id);
 alter table favorito add foreign key (id_instituicao) references instituicao(id);
 
 create table if not exists instituicao_infraestrutura(
+	id bigint not null auto_increment,
 	id_instituicao bigint,
     id_infraestrutura bigint,
-    constraint pk_id_inst_infra primary key (id_instituicao, id_infraestrutura)
+    constraint pk_id_inst_publ_dtp primary key (id)
 );
 alter table instituicao_infraestrutura add foreign key (id_instituicao) references instituicao(id);
 alter table instituicao_infraestrutura add foreign key (id_infraestrutura) references infraestrutura(id);
@@ -98,9 +99,10 @@ alter table instituicao_curso add foreign key (id_instituicao) references instit
 alter table instituicao_curso add foreign key (id_curso) references curso(id);
 
 create table if not exists instituicao_publicacao(
+	id bigint not null auto_increment,
 	id_instituicao bigint,
     id_publicacao bigint,
-    constraint pk_id_inst_publ_dtp primary key (id_instituicao, id_publicacao)
+    constraint pk_id_inst_publ_dtp primary key (id)
 );
 alter table instituicao_publicacao add foreign key (id_instituicao) references instituicao(id);
 alter table instituicao_publicacao add foreign key (id_publicacao) references publicacao(id);
