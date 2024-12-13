@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo Relacionamento</title>
+</head>
+<body>
+<h1>Novo Relacionamento</h1>
+<form th:action="@{/instituicaoPublicacao/save}" th:object="${instituicaoPublicacao}" method="post">
+    <label for="instituicao">Instituição:</label>
+    <select id="instituicao" th:field="*{instituicao.id}">
+        <option th:each="instituicao : ${instituicoes}" th:value="${instituicao.id}" th:text="${instituicao.nome}"></option>
+    </select>
+    <br>
+    <label for="publicacao">Publicação:</label>
+    <select id="publicacao" th:field="*{publicacao.id}">
+        <option th:each="publicacao : ${publicacoes}" th:value="${publicacao.id}" th:text="${publicacao.descricao}"></option>
+    </select>
+    <br>
+    <button type="submit">Salvar</button>
+</form>
+</body>
+</html>

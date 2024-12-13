@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Relacionamentos Instituição-Curso</title>
+</head>
+<body>
+    <h1>Relacionamentos Instituição-Curso</h1>
+    <a th:href="@{/instituicaoCurso/new}">Novo Relacionamento</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Instituição</th>
+                <th>Curso</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="instituicaoPublicacao : ${instituicaoPublicacoes}">
+                <td th:text="${instituicaoPublicacao.instituicao.nome}"></td>
+                <td th:text="${instituicaoPublicacao.post.dataPublicacao}"></td>
+                <td th:text="${instituicaoPublicacao.post.descricao}"></td>
+                <td>
+                    <a th:href="@{/instituicaoPublicacao/delete/{id}(id=${instituicaoPublicacao.id})}">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
