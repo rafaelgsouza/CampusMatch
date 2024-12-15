@@ -25,6 +25,7 @@ create table if not exists instituicao(
     numero_mec int not null,
     campus varchar(100) not null,
     publica boolean,
+    sigla varchar(20),
     constraint pk_instituicao primary key (id),
     constraint uc_instituicao UNIQUE (nome, campus)
 );
@@ -72,13 +73,17 @@ create table if not exists publicacao(
     constraint pk_publicacao primary key (id)
 );
 
-create table if not exists favorito(
-	id_estudante bigint,
+create table if not exists avaliacao(
+	id bigint not null auto_increment,
+    nota bigint,
+    comentario varchar(200),
+    data_avaliacao timestamp not null,
     id_instituicao bigint,
-    constraint pk_id_usu_uni primary key (id_estudante, id_instituicao)
+    id_estudante bigint,
+    constraint pk_id_avl primary key (id)
 );
-alter table favorito add foreign key (id_estudante) references estudante(id);
-alter table favorito add foreign key (id_instituicao) references instituicao(id);
+alter table avaliacao add foreign key (id_instituicao) references instituicao(id);
+alter table avaliacao add foreign key (id_estudante) references estudante(id);
 
 create table if not exists instituicao_infraestrutura(
 	id bigint not null auto_increment,
