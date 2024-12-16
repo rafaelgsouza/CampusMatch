@@ -56,6 +56,7 @@ create table if not exists curso(
 		'CIENCIAS_SOCIAIS_APLICADAS',
 		'CIENCIAS_HUMANAS',
 		'LINGUISTICA_LETRAS_E_ARTES'),
+    sigla varchar(20),
     constraint pk_curso primary key (id)
 );
 
