@@ -56,6 +56,7 @@ create table if not exists curso(
 		'CIENCIAS_SOCIAIS_APLICADAS',
 		'CIENCIAS_HUMANAS',
 		'LINGUISTICA_LETRAS_E_ARTES'),
+    sigla varchar(20),
     constraint pk_curso primary key (id)
 );
 
@@ -72,6 +73,14 @@ create table if not exists publicacao(
     data_publicacao timestamp not null,
     constraint pk_publicacao primary key (id)
 );
+
+create table if not exists favorito(
+	id_estudante bigint,
+    id_instituicao bigint,
+    constraint pk_id_usu_uni primary key (id_estudante, id_instituicao)
+);
+alter table favorito add foreign key (id_estudante) references estudante(id);
+alter table favorito add foreign key (id_instituicao) references instituicao(id);
 
 create table if not exists avaliacao(
 	id bigint not null auto_increment,
