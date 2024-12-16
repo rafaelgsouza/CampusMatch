@@ -75,9 +75,10 @@ create table if not exists publicacao(
 );
 
 create table if not exists favorito(
+	id bigint not null auto_increment,
 	id_estudante bigint,
     id_instituicao bigint,
-    constraint pk_id_usu_uni primary key (id_estudante, id_instituicao)
+    constraint pk_id_usu_uni primary key (id)
 );
 alter table favorito add foreign key (id_estudante) references estudante(id);
 alter table favorito add foreign key (id_instituicao) references instituicao(id);
