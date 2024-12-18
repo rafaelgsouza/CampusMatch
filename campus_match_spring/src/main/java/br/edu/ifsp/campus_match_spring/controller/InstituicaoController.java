@@ -47,12 +47,12 @@ public class InstituicaoController {
 	}
 	
 	@RequestMapping("editInstituicao/{id}")
-	public String editInstituicao(@PathVariable("id") Instituicao instituicao, Model model) {
-		
-		model.addAttribute(instituicao);
-		
-		return "/pages/instituicao/InstituicaoNew";
+	public String editInstituicao(@PathVariable("id") Long id, Model model) {
+	    Instituicao instituicao = instituicaoRepo.findById(id).orElse(null);
+	    model.addAttribute("instituicao", instituicao);
+	    return "/pages/instituicao/InstituicaoNew";
 	}
+
 	
 	@RequestMapping("deleteInstituicao/{id}")
 	public String deleteInstituicao(@PathVariable("id") Long id) {
