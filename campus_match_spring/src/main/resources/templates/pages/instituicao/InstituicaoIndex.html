@@ -20,8 +20,11 @@
    				<th>Nº Mec</th>
    				<th>Campus</th>
    				<th>Pública</th>
+   				<th>Cursos</th>
+   			    <th>Infraestruturas</th>
+   				<th>Publicações</th>
    				<th>Delete</th>
-   			</tr>
+   				</tr>
    		</thead>
    		<tbody>
    			<tr th:each="instituicao : ${instituicoes}">
@@ -33,6 +36,9 @@
    				<td th:text="${instituicao.numeroMec}"></td>
    				<td th:text="${instituicao.campus}"></td>
    				<td th:text="${instituicao.publica}"></td>
+   				<td><ul> <li th:each="curso : ${instituicao.cursos}" th:text="${curso.nome}"></li></ul></td>
+   				<td><ul> <li th:each="infra : ${instituicao.infraestruturas}" th:text="${infra.descricao}"></li></ul></td>
+   				<td><ul> <li th:each="pub : ${instituicao.publicacoes}" th:text="${pub.descricao}"></li></ul></td>
    				<td><a th:href="@{deleteInstituicao/{id}(id=${instituicao.id})}">X</a></td>
    			</tr>
    		</tbody>
