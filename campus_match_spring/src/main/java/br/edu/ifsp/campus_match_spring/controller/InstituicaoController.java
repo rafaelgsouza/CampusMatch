@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.edu.ifsp.campus_match_spring.model.Instituicao;
-import br.edu.ifsp.campus_match_spring.repository.InstituticaoRepo;
+import br.edu.ifsp.campus_match_spring.repository.InstituicaoRepo;
 
 @Controller
 @RequestMapping("/instituicoes")
 public class InstituicaoController {
 	
 	@Autowired
-	private InstituticaoRepo instituicaoRepo;
+	private InstituicaoRepo instituicaoRepo;
 	
 	@RequestMapping("index")
 	public String index(Model model) {

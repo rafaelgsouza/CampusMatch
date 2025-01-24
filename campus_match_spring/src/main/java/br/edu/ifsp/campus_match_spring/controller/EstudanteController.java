@@ -1,10 +1,10 @@
 package br.edu.ifsp.campus_match_spring.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,11 +53,22 @@ public class EstudanteController {
 	}
 	
 	@PostMapping("save")
-	public ResponseEntity<String> saveEstudante(@ModelAttribute Estudante estudante) {
+	public String saveEstudante(@ModelAttribute Estudante estudante, Model model) {
+		
+		estudante.setUuid(UUID.randomUUID().toString());
+		estudante.setValidado(0);
+		
+		model.addAttribute(estudante);
+		Estudante e = estudanteRepo.getByEmail(estudante.getEmail());
+		
+		// TODO: Implement error handling for all fields.
+		// https://www.youtube.com/watch?v=dUoCQ1s3Dcs
+		if(e != null) {
+			return "/pages/web/estudanteregistrar";
+		}
 		
 		estudanteRepo.save(estudante);
-		
-		return new ResponseEntity<>("Estudante salvo", HttpStatus.OK);
+		return "/pages/web/estudanteconfirmacao";
 	}
 	
 	@RequestMapping("editEstudante/{id}")
@@ -65,7 +76,7 @@ public class EstudanteController {
 		
 		model.addAttribute(estudante);
 		
-		return "/pages/estudante/EstudanteNew";
+		return "/pages/web/EstudanteNew";
 	}
 	
 	@RequestMapping("deleteEstudante/{id}")
