@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class CursoController {
 	@Autowired
 	private CursoRepo cursoRepo; 
 	
-	@RequestMapping("index")
+	@GetMapping("index")
 	public String index(Model model) {
 		
 		List<Curso> cursos = cursoRepo.findAll();
@@ -34,7 +35,7 @@ public class CursoController {
 		return "/pages/curso/CursoIndex";
 	}
 	
-	@RequestMapping("new")
+	@GetMapping("new")
 	public String newCurso(Model model) {
 		
 		model.addAttribute("curso", new Curso());
@@ -50,7 +51,7 @@ public class CursoController {
 		return "redirect:index";
 	}
 	
-	@RequestMapping("editCurso/{id}")
+	@GetMapping("editCurso/{id}")
 	public String editCurso(@PathVariable("id") Curso curso, Model model) {
 		
 		model.addAttribute(curso);
@@ -58,8 +59,8 @@ public class CursoController {
 		return "/pages/curso/CursoNew";
 	}
 	
-	@RequestMapping("deleteCurso/{id}")
-	public String deleteCurso(@PathVariable("id") Long id) {
+	@GetMapping("deleteCurso/{id}")
+	public String deleteCurso(@PathVariable Long id) {
 		
 		cursoRepo.deleteById(id);
 		

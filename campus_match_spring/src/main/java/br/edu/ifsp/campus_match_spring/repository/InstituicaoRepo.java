@@ -9,4 +9,6 @@ import br.edu.ifsp.campus_match_spring.model.Instituicao;
 public interface InstituicaoRepo extends JpaRepository<Instituicao, Long>{
 
 	Instituicao getByEmail(String email);
+
+	Instituicao getByUuid(String uuid);
 }

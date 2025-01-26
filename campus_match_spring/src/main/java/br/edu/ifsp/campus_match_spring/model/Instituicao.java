@@ -11,15 +11,38 @@ public class Instituicao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "email")
     private String email;
+    
+    @Column(name = "tipo")
+    private String tipo;
+    
+    @Column(name = "senha")
     private String senha;
+    
+    @Column(name = "cep")
     private String cep;
+    
+    @Column(name = "nome")
     private String nome;
+    
+    @Column(name = "uuid")
+    private String uuid;
 
     @Column(name = "numero_mec")
     private int numeroMec;
+    
+    @Column(name = "campus")
     private String campus;
+    
+    @Column(name = "validado")
+    private int validado;
+    
+    @Column(name = "publica")
     private boolean publica;
+    
+    @Column(name = "sigla")
+    private String sigla;
 
     @OneToMany
     @JoinTable(
@@ -133,5 +156,50 @@ public class Instituicao {
 
     public void setPublicacoes(List<Publicacao> publicacoes) {
         this.publicacoes = publicacoes;
+    }
+    
+    public int getValidado() {
+    	return this.validado;
+    }
+    
+    public String getUuid() {
+    	return this.uuid;
+    }
+    
+    public void setUuid(String uuid) {
+    	this.uuid = uuid;
+    }
+    
+    public void setValidado(int validado) {
+    	this.validado = validado;
+    }
+    
+    public void setSigla(String sigla) {
+    	this.sigla = sigla;
+    }
+    
+    public String getSigla() {
+    	return this.sigla;
+    }
+    
+    public String formatMail() {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("Nome: ").append(getNome()).append("\n");
+        sb.append("Email: ").append(getEmail()).append("\n");
+        sb.append("CEP: ").append(getCep()).append("\n");
+        sb.append("MEC: ").append(getNumeroMec()).append("\n");
+        sb.append("Campus: ").append(getCampus()).append("\n");
+        sb.append("Tipo: ").append(getTipo()).append("\n");
+        sb.append("Sigla: ").append(getSigla()).append("\n");
+    	return sb.toString();
+    }
+    
+    public String getTipo() {
+    	return this.tipo;
+    }
+    
+    public void setTipo(String tipo) {
+    	this.tipo = tipo;
     }
 }

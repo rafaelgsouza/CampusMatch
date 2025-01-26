@@ -10,4 +10,6 @@ public interface EstudanteRepo extends JpaRepository<Estudante, Long> {
 
 	Estudante getByEmail(String email);
 
+	Estudante getByUuid(String uuid);
+
 }

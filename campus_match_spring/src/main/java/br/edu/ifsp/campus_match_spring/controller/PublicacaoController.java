@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class PublicacaoController {
 	@Autowired
 	private PublicacaoRepo PublicacaoRepo; 
 	
-	@RequestMapping("index")
+	@GetMapping("index")
 	public String index(Model model) {
 		
 		List<Publicacao> publicacoes = PublicacaoRepo.findAll();
@@ -30,7 +31,7 @@ public class PublicacaoController {
 		return "/pages/publicacao/PublicacaoIndex";
 	}
 	
-	@RequestMapping("new")
+	@GetMapping("new")
 	public String newPublicacao(Model model) {
 		
 		model.addAttribute("publicacao", new Publicacao());
@@ -46,7 +47,7 @@ public class PublicacaoController {
 		return "redirect:index";
 	}
 	
-	@RequestMapping("editPublicacao/{id}")
+	@GetMapping("editPublicacao/{id}")
 	public String editPublicacao(@PathVariable("id") Publicacao publicacao, Model model) {
 		
 		model.addAttribute(publicacao);
@@ -55,8 +56,8 @@ public class PublicacaoController {
 	}
 	
 
-	@RequestMapping("deletePublicacao/{id}")
-	public String deletePublicacao(@PathVariable("id") Long id) {
+	@GetMapping("deletePublicacao/{id}")
+	public String deletePublicacao(@PathVariable Long id) {
 		
 		PublicacaoRepo.deleteById(id);
 		

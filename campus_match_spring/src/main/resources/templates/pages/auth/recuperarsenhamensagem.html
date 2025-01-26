@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CampusMatch - Registro</title>
+	<link rel="stylesheet" type="text/css" href="/css/auth.css" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+				<h1>Requisição de recuperação de senha</h1>
+
+				<p>Sua requisição foi enviada para o email: <span th:text="${email}"></span></p>
+				
+				<p>Já recuperou sua senha? <a th:href="@{/auth/login}">Faça login</a></p>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

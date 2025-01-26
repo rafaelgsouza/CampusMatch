@@ -26,6 +26,9 @@ create table if not exists instituicao(
     campus varchar(100) not null,
     publica boolean,
     sigla varchar(20),
+    uuid varchar(255) not null,
+    validado int not null,
+    tipo varchar(10) not null,
     constraint pk_instituicao primary key (id),
     constraint uc_instituicao UNIQUE (nome, campus)
 );

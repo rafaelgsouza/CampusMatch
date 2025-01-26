@@ -23,13 +23,13 @@ public class InstituicaoCursoController {
     @Autowired
     private CursoRepo cursoRepo;
 
-    @RequestMapping("index")
+    @GetMapping("index")
     public String index(Model model) {
         model.addAttribute("instituicaoCursos", instituicaoCursoRepo.findAll());
         return "/pages/instituicaoCurso/InstituicaoCursoIndex";
     }
 
-    @RequestMapping("new")
+    @GetMapping("new")
     public String newInstituicaoCurso(Model model) {
         model.addAttribute("instituicoes", instituicaoRepo.findAll());
         model.addAttribute("cursos", cursoRepo.findAll());
@@ -43,8 +43,8 @@ public class InstituicaoCursoController {
         return "redirect:/instituicaoCurso/index";
     }
 
-    @RequestMapping("delete/{id}")
-    public String deleteInstituicaoCurso(@PathVariable("id") Long id) {
+    @GetMapping("delete/{id}")
+    public String deleteInstituicaoCurso(@PathVariable Long id) {
         instituicaoCursoRepo.deleteById(id);
         return "redirect:/instituicaoCurso/index";
     }

@@ -1,7 +1,6 @@
 package br.edu.ifsp.campus_match_spring.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,13 +8,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.edu.ifsp.campus_match_spring.model.Estudante;
 import br.edu.ifsp.campus_match_spring.repository.EstudanteRepo;
+import br.edu.ifsp.campus_match_spring.service.EstudanteService;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
@@ -25,7 +28,10 @@ public class EstudanteController {
 	@Autowired
 	private EstudanteRepo estudanteRepo;
 	
-	@RequestMapping("index")
+	@Autowired
+	private EstudanteService estudanteService;
+	
+	@GetMapping("index")
 	public String index(Model model) {
 		
 		List<Estudante> estudantes = estudanteRepo.findAll();
@@ -35,7 +41,7 @@ public class EstudanteController {
 		return "/pages/estudante/EstudanteIndex";
 	}
 	
-	@RequestMapping("get_all")
+	@GetMapping("get_all")
 	public ResponseEntity<List<Estudante>> getAllStudents(){
 		
 		List<Estudante> estudantes = estudanteRepo.findAll();
@@ -44,7 +50,7 @@ public class EstudanteController {
 		
 	}
 	
-	@RequestMapping("new")
+	@GetMapping("new")
 	public String newEstudante(Model model) {
 		
 		model.addAttribute("estudante", new Estudante());
@@ -53,25 +59,31 @@ public class EstudanteController {
 	}
 	
 	@PostMapping("save")
-	public String saveEstudante(@ModelAttribute Estudante estudante, Model model) {
+	public String saveEstudante(@ModelAttribute Estudante estudante, Model model, RedirectAttributes redirectAttrs) {
 		
-		estudante.setUuid(UUID.randomUUID().toString());
-		estudante.setValidado(0);
-		
-		model.addAttribute(estudante);
-		Estudante e = estudanteRepo.getByEmail(estudante.getEmail());
-		
-		// TODO: Implement error handling for all fields.
-		// https://www.youtube.com/watch?v=dUoCQ1s3Dcs
-		if(e != null) {
-			return "/pages/web/estudanteregistrar";
+		model.addAttribute("estudante",estudante);
+		redirectAttrs.addFlashAttribute("estudante",estudante);
+		String current_url = ServletUriComponentsBuilder.fromCurrentRequest().toUriString();
+
+		if(estudanteService.register(estudante,current_url)) {
+			return "/pages/auth/estudanteconfirmacao";
+		} else {
+			return "redirect:/auth/estudante";
 		}
-		
-		estudanteRepo.save(estudante);
-		return "/pages/web/estudanteconfirmacao";
+
 	}
 	
-	@RequestMapping("editEstudante/{id}")
+	@GetMapping("save/{uuid}")
+	public String validateEstudante(@PathVariable("uuid") String uuid, Model model) {
+		
+		if(estudanteService.validate(uuid)) {
+			return "redirect:/auth/login";
+		}else {
+			return "redirect:/auth/login";
+		}
+	}
+	
+	@GetMapping("editEstudante/{id}")
 	public String editEstudante(@PathVariable("id") Estudante estudante, Model model) {
 		
 		model.addAttribute(estudante);
@@ -79,7 +91,7 @@ public class EstudanteController {
 		return "/pages/web/EstudanteNew";
 	}
 	
-	@RequestMapping("deleteEstudante/{id}")
+	@GetMapping("deleteEstudante/{id}")
 	public String deleteEstudante(@PathVariable("id") Long id) {
 		
 		estudanteRepo.deleteById(id);

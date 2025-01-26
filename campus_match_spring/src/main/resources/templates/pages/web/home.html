@@ -1,52 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>CampusMatch - Home</title>
-     <style type="text/css">
-
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  min-height: 100vh; /* Garante que o conteúdo ocupe toda a altura da viewport */
-}
-
-header {
-  background-color: #f0f0f0;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-     </style>
-     
+<meta charset="UTF-8">
+<title>CampusMatch</title>
 </head>
 <body>
-
-    <aside>
-        <nav>
-            <ul>
-                <li><a th:href="@{/cursos/index}">Cursos</a></li>
-                <li><a th:href="@{/instituicoes/index}">Instituições</a></li>
-                <li><a th:href="@{/estudantes/index}">Estudantes</a></li>
-                <li><a th:href="@{/infraestruturas/index}">Infraestruturas</a></li>
-                <li><a th:href="@{/publicacoes/index}">Publicacao</a></li>
-            </ul>
-        </nav>
-    </aside>
-
-    <main>
-        <section class="publications">
-            <h2>Publicações</h2>
-            <article>
-                <h3>Título da Publicação 1</h3>
-                <p>Descrição da publicação 1</p>
-                <p>Data: 2023-11-23</p>
-            </article>
-            <article>
-                </article>
-        </section>
-    </main>
+	
+	<h1>CampusMatch</h1>
+	
+	<h2>
+		<a th:href="@{/cursos/index}">Cursos</a>
+		<br>
+		
+		<a th:href="@{/instituicoes/index}">Instituições</a>
+		<br>
+		
+		<a th:href="@{/estudantes/index}">Estudantes</a>
+		<br>
+		
+		<a th:href="@{/infraestruturas/index}">Infraestruturas</a>
+		<br>
+		
+		<a th:href="@{/publicacoes/index}">Publicacao</a>
+		<br>
+	</h2>
+	
 </body>
 </html>

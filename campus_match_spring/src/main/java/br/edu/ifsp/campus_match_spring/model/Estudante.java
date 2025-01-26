@@ -30,7 +30,6 @@ public class Estudante {
 	
 	@Column(name="senha")
 	@NotBlank
-	@Length(min=6,max=25, message = "Tamanho de senha invalido: not between 6 and 25")
 	@Valid
 	private String senha;
 	
@@ -43,7 +42,7 @@ public class Estudante {
 	
 	@Column(name="nome")
 	@NotBlank
-	@Length(min=3, max=100, message = "Tamanho de senha invalido: not between 3 and 100")
+	@Length(min=3, max=100, message = "Tamanho do nome de usuario: not between 3 and 100")
 	@Valid
 	private String nome;
 	
