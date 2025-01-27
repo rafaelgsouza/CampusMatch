@@ -37,6 +37,12 @@ public class InstituicaoController {
 		return "/pages/instituicao/InstituicaoIndex";
 	}
 	
+	@GetMapping("home")
+	public String home() {
+		
+		return "/pages/instituicao/InstituicaoHome";
+	}
+	
 	@PostMapping("new")
 	public String newInstituicao(Model model) {
 		

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Match</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Campus Match</h1>
+            </div>
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#inscricao">Inscreva-se</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="intro">
+        <div class="intro-content">
+            <h2>Encontre o par perfeito para seu campus</h2>
+            <p>Conecte-se com colegas que compartilham dos seus interesses, aproveite o melhor da sua experiência universitária.</p>
+            <a th:href="@{/auth/login}">Faça seu login</a>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Campus Match. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

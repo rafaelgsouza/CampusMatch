@@ -34,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer{
 	
 	@Value("${spring.mail.properties.mail.smtp.auth}")
 	private String mailAuth;
-
+	
 	@Value("${spring.mail.properties.mail.smtp.starttls.enable}")
 	private String mailTlsEnable;
 	
@@ -43,7 +43,7 @@ public class WebConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("pages/web/landingPage");
+		registry.addViewController("/").setViewName("pages/web/landing_page");
 	}
 	
 	@Bean
@@ -67,7 +67,7 @@ public class WebConfig implements WebMvcConfigurer{
 
 		return http.build();
 	}
-
+	
 	@Bean
 	UserDetailsService userDetailsService() {
 		UserDetails user =

@@ -31,6 +31,12 @@ public class EstudanteController {
 	@Autowired
 	private EstudanteService estudanteService;
 	
+	@GetMapping("home")
+	public String home() {
+		
+		return "/pages/estudante/EstudanteHome";
+	}
+	
 	@GetMapping("index")
 	public String index(Model model) {
 		

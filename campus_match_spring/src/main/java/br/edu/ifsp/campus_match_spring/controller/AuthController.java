@@ -15,6 +15,7 @@ import br.edu.ifsp.campus_match_spring.model.Instituicao;
 import br.edu.ifsp.campus_match_spring.model.LoginUser;
 import br.edu.ifsp.campus_match_spring.model.UserRecoveryPassword;
 import br.edu.ifsp.campus_match_spring.service.LoginService;
+import br.edu.ifsp.campus_match_spring.util.Constants;
 
 
 @Controller
@@ -41,21 +42,20 @@ public class AuthController {
     @PostMapping("logUser")
 	public String logUser(Model model, @ModelAttribute LoginUser loginUser) {
 		
-    	if(loginService.tryLogin(loginUser)) {
-    		return "redirect:home";
+    	String userType = loginService.tryLogin(loginUser);
+    	
+    	switch(userType) {
+    		case Constants.USER_ESTUDANTE:
+    			return "redirect:/estudantes/home";
+    		case Constants.USER_INSTITUICAO:
+    			return "redirect:/instituicoes/home";
+    		case Constants.STRING_FALSE:
+    			break;
     	}
     	
     	model.addAttribute("LoginUser", loginUser);
     	
-    	return "/pages/auth/login";
-    	
-	}
-    
-    @GetMapping("home")
-	public String home(Model model) {
-		
-    	return "pages/web/home";
-    	
+    	return "/pages/auth/login";	
 	}
     
 	@GetMapping("instituicao")

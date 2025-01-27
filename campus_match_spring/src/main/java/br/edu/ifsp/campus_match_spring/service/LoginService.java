@@ -10,6 +10,7 @@ import br.edu.ifsp.campus_match_spring.model.Instituicao;
 import br.edu.ifsp.campus_match_spring.model.LoginUser;
 import br.edu.ifsp.campus_match_spring.repository.EstudanteRepo;
 import br.edu.ifsp.campus_match_spring.repository.InstituicaoRepo;
+import br.edu.ifsp.campus_match_spring.util.Constants;
 
 @Service
 public class LoginService {
@@ -28,26 +29,23 @@ public class LoginService {
         this.instituicaoRepo = instituicaoRepo;
     }
 	
-	public boolean tryLogin(LoginUser user) {
+	public String tryLogin(LoginUser user) {
 		
-		user.setPassword(passwordService.hashPassword(user.getPassword()));
 		Estudante estudante = estudanteRepo.getByEmail(user.getEmail());
 		Instituicao instituicao = instituicaoRepo.getByEmail(user.getEmail());
 		
 		if(estudante != null) {
-			if(user.getPassword().equals(estudante.getSenha()) && estudante.getValidado() == 1) {
-				return true;
+			if(passwordService.checkPassword(user.getPassword(), estudante.getSenha()) && estudante.getValidado() == 1) {
+				return Constants.USER_ESTUDANTE;
 			}
 		}
 		else if(instituicao != null) {
-			if(user.getPassword().equals(instituicao.getSenha()) && instituicao.getValidado() == 1) {
-				return true;
+			if(passwordService.checkPassword(user.getPassword(), instituicao.getSenha()) && instituicao.getValidado() == 1) {
+				return Constants.USER_INSTITUICAO;
 			}
-		} else {
-			return false;
 		}
 		
-		return false;
+		return Constants.STRING_FALSE;
 	}
 	
 	public boolean recoveryPassword(String email, String current_url) {
