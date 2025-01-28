@@ -3,6 +3,8 @@ package br.edu.ifsp.campus_match_spring.service;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.campus_match_spring.model.Estudante;
@@ -10,7 +12,6 @@ import br.edu.ifsp.campus_match_spring.model.Instituicao;
 import br.edu.ifsp.campus_match_spring.model.LoginUser;
 import br.edu.ifsp.campus_match_spring.repository.EstudanteRepo;
 import br.edu.ifsp.campus_match_spring.repository.InstituicaoRepo;
-import br.edu.ifsp.campus_match_spring.util.Constants;
 
 @Service
 public class LoginService {
@@ -19,8 +20,11 @@ public class LoginService {
 	private PasswordService passwordService;
 	
 	@Autowired
-	private MailService mailService;
+	private AuthenticationManager authenticationManager;
 	
+	@Autowired
+	private MailService mailService;
+		
     private final EstudanteRepo estudanteRepo;
     private final InstituicaoRepo instituicaoRepo;
     
@@ -28,25 +32,14 @@ public class LoginService {
         this.estudanteRepo = estudanteRepo;
         this.instituicaoRepo = instituicaoRepo;
     }
+	  
 	
 	public String tryLogin(LoginUser user) {
-		
-		Estudante estudante = estudanteRepo.getByEmail(user.getEmail());
-		Instituicao instituicao = instituicaoRepo.getByEmail(user.getEmail());
-		
-		if(estudante != null) {
-			if(passwordService.checkPassword(user.getPassword(), estudante.getSenha()) && estudante.getValidado() == 1) {
-				return Constants.USER_ESTUDANTE;
-			}
-		}
-		else if(instituicao != null) {
-			if(passwordService.checkPassword(user.getPassword(), instituicao.getSenha()) && instituicao.getValidado() == 1) {
-				return Constants.USER_INSTITUICAO;
-			}
-		}
-		
-		return Constants.STRING_FALSE;
+		var usernamePassword = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+		var auth = authenticationManager.authenticate(usernamePassword);
+		return "";
 	}
+    
 	
 	public boolean recoveryPassword(String email, String current_url) {
 		Estudante estudante = estudanteRepo.getByEmail(email);
@@ -120,4 +113,6 @@ public class LoginService {
 		}
 		
 	}
+
+
 }

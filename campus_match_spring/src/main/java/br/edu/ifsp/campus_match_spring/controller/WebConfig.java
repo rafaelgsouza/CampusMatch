@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -11,11 +14,9 @@ import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -49,6 +50,7 @@ public class WebConfig implements WebMvcConfigurer{
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests((requests) -> requests
 				.requestMatchers(
 						"/"
@@ -57,6 +59,12 @@ public class WebConfig implements WebMvcConfigurer{
 						,"/estudantes/save/**"
 						,"/instituicoes/save/**"
 						).permitAll()
+				.requestMatchers(
+						"/instituicoes/**"
+						).hasRole("instituicao")
+				.requestMatchers(
+						"/estudantes/**"
+						).hasRole("estudante")
 				.anyRequest().authenticated()
 			)
 			.formLogin((form) -> form
@@ -67,19 +75,13 @@ public class WebConfig implements WebMvcConfigurer{
 
 		return http.build();
 	}
-	
-	@Bean
-	UserDetailsService userDetailsService() {
-		UserDetails user =
-			 User.withDefaultPasswordEncoder()
-				.username("user")
-				.password("password")
-				.roles("USER")
-				.build();
 
-		return new InMemoryUserDetailsManager(user);
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
 	}
 	
+
 	@Bean
 	JavaMailSender javaMailSender() {
 	    System.out.println("Creating JavaMailSender bean");
@@ -97,5 +99,10 @@ public class WebConfig implements WebMvcConfigurer{
 
 	    return mailSender;
 	}
+	
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }
