@@ -3,6 +3,7 @@ package br.edu.ifsp.campus_match_spring.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class FavoritoController {
     @Autowired
     private FavoritoRepo favoritoRepo;
 
-    @RequestMapping("index")
+    @GetMapping("index")
     public String index(Model model) {
         model.addAttribute("favoritos", favoritoRepo.findAll());
         return "/pages/favorito/FavoritoIndex";
@@ -31,7 +32,7 @@ public class FavoritoController {
         return "redirect:index";
     }
 
-    @RequestMapping("delete/{idEstudante}/{idInstituicao}")
+    @GetMapping("delete/{idEstudante}/{idInstituicao}")
     public String deleteFavorito(@PathVariable Long idEstudante, @PathVariable Long idInstituicao) {
         favoritoRepo.deleteById(new FavoritoId(idEstudante, idInstituicao));
         return "redirect:/favoritos/index";

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solicitar Cadastro de Instituição</title>
+	<link rel="stylesheet" type="text/css" href="/css/auth.css" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Solicitar Cadastro de Instituição
+            </div>
+            <div class="card-body">
+                <form method="post" th:action="@{/instituicoes/save}" th:object="${instituicao}">
+                    <label for="nome">Nome da Instituição:</label>
+                    <input th:value="*{nome}" type="text" id="nome" name="nome" required>
+
+                    <label for="cep">CEP:</label>
+                    <input th:value="*{cep}" type="text" id="cep" name="cep" required>
+
+                    <label for="email">Email:</label>
+                    <input th:value="*{email}" type="email" id="email" name="email" required>
+
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" required>
+
+                    <label for="numeroMec">Número MEC:</label>
+                    <input th:value="*{numeroMec}" type="text" id="numeroMec" name="numeroMec" required>
+
+                    <label for="campus">Campus:</label>
+                    <input th:value="*{campus}" type="text" id="campus" name="campus" required>
+
+                    <label for="sigla">Sigla:</label>
+                    <input th:value="*{sigla}" type="text" id="sigla" name="sigla" required>
+
+					<label for="tipo">Tipo de Instituição:</label>
+					<select th:value="*{tipo}" id="tipo" name="tipo">
+					    <option value="publica">Pública</option>
+					    <option value="privada">Privada</option>
+					</select>
+					
+                    <button type="submit">Enviar Requisição</button>
+                </form>
+                <p>Já possui uma conta? <a href="@{/auth/login}">Faça login</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

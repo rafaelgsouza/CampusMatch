@@ -1,7 +1,4 @@
- -- drop database campusmatch;
-
--- select * from estudante;
-
+drop database if exists campusmatch;
 create database if not exists campusmatch;
 use campusmatch;
 
@@ -9,23 +6,29 @@ create table if not exists estudante(
 	id bigint not null auto_increment,
     nome varchar(100) not null,
     senha varchar(100) not null,
-    cep varchar(8) not null,
+    cep varchar(9) not null,
     email varchar(100) not null,
     data_nascimento date not null,
+    uuid varchar(255) not null,
+    validado int not null,
     constraint pk_usuario primary key (id),
-    constraint uc_estudante UNIQUE (email)
+    constraint uc_estudante UNIQUE (email),
+    constraint uc_estudante_uuid UNIQUE (uuid)
 );
 
 create table if not exists instituicao(
 	id bigint not null auto_increment,
     nome varchar(100) not null,
-    cep varchar(8) not null,
+    cep varchar(9) not null,
     email varchar(100) not null,
     senha varchar(100) not null,
     numero_mec int not null,
     campus varchar(100) not null,
     publica boolean,
     sigla varchar(20),
+    uuid varchar(255) not null,
+    validado int not null,
+    tipo varchar(10) not null,
     constraint pk_instituicao primary key (id),
     constraint uc_instituicao UNIQUE (nome, campus)
 );

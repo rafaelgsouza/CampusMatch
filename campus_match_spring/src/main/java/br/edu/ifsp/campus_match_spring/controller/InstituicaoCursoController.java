@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import br.edu.ifsp.campus_match_spring.model.InstituicaoCurso;
 import br.edu.ifsp.campus_match_spring.repository.CursoRepo;
 import br.edu.ifsp.campus_match_spring.repository.InstituicaoCursoRepo;
-import br.edu.ifsp.campus_match_spring.repository.InstituticaoRepo;
+import br.edu.ifsp.campus_match_spring.repository.InstituicaoRepo;
 
 @Controller
 @RequestMapping("/instituicaoCurso")
@@ -18,18 +18,18 @@ public class InstituicaoCursoController {
     private InstituicaoCursoRepo instituicaoCursoRepo;
 
     @Autowired
-    private InstituticaoRepo instituicaoRepo;
+    private InstituicaoRepo instituicaoRepo;
 
     @Autowired
     private CursoRepo cursoRepo;
 
-    @RequestMapping("index")
+    @GetMapping("index")
     public String index(Model model) {
         model.addAttribute("instituicaoCursos", instituicaoCursoRepo.findAll());
         return "/pages/instituicaoCurso/InstituicaoCursoIndex";
     }
 
-    @RequestMapping("new")
+    @GetMapping("new")
     public String newInstituicaoCurso(Model model) {
         model.addAttribute("instituicoes", instituicaoRepo.findAll());
         model.addAttribute("cursos", cursoRepo.findAll());
@@ -43,8 +43,8 @@ public class InstituicaoCursoController {
         return "redirect:/instituicaoCurso/index";
     }
 
-    @RequestMapping("delete/{id}")
-    public String deleteInstituicaoCurso(@PathVariable("id") Long id) {
+    @GetMapping("delete/{id}")
+    public String deleteInstituicaoCurso(@PathVariable Long id) {
         instituicaoCursoRepo.deleteById(id);
         return "redirect:/instituicaoCurso/index";
     }

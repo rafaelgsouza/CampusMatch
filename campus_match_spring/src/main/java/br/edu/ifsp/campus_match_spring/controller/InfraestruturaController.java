@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class InfraestruturaController {
 	@Autowired
 	private InfraestruturaRepo InfraestruturaRepo; 
 	
-	@RequestMapping("index")
+	@GetMapping("index")
 	public String index(Model model) {
 		
 		List<Infraestrutura> infraestruturas = InfraestruturaRepo.findAll();
@@ -30,7 +31,7 @@ public class InfraestruturaController {
 		return "/pages/infraestrutura/InfraestruturaIndex";
 	}
 	
-	@RequestMapping("new")
+	@GetMapping("new")
 	public String newInfraestrutura(Model model) {
 		
 		model.addAttribute("infraestrutura", new Infraestrutura());
@@ -46,7 +47,7 @@ public class InfraestruturaController {
 		return "redirect:index";
 	}
 	
-	@RequestMapping("editInfraestrutura/{id}")
+	@GetMapping("editInfraestrutura/{id}")
 	public String editInfraestrutura(@PathVariable("id") Infraestrutura infraestrutura, Model model) {
 		
 		model.addAttribute(infraestrutura);
@@ -55,8 +56,8 @@ public class InfraestruturaController {
 	}
 	
 
-	@RequestMapping("deleteInfraestrutura/{id}")
-	public String deleteInfraestrutura(@PathVariable("id") Long id) {
+	@GetMapping("deleteInfraestrutura/{id}")
+	public String deleteInfraestrutura(@PathVariable Long id) {
 		
 		InfraestruturaRepo.deleteById(id);
 		
