@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.edu.ifsp.campus_match_spring.util.Constants;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -116,7 +117,7 @@ public class Estudante implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
-		return List.of(new SimpleGrantedAuthority("estudante"));
+		return List.of(new SimpleGrantedAuthority(Constants.USER_ESTUDANTE));
 	}
 
 	@Override

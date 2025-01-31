@@ -9,6 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.edu.ifsp.campus_match_spring.util.Constants;
+
 @Entity
 @Table(name = "instituicao")
 public class Instituicao implements UserDetails{
@@ -211,7 +213,7 @@ public class Instituicao implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority("instituicao"));
+		return List.of(new SimpleGrantedAuthority(Constants.USER_INSTITUICAO));
 	}
 
 	@Override

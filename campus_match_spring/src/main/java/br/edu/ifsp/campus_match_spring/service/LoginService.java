@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.campus_match_spring.model.Estudante;
@@ -34,10 +35,9 @@ public class LoginService {
     }
 	  
 	
-	public String tryLogin(LoginUser user) {
+	public Authentication tryLogin(LoginUser user) {
 		var usernamePassword = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
-		var auth = authenticationManager.authenticate(usernamePassword);
-		return "";
+		return authenticationManager.authenticate(usernamePassword);
 	}
     
 	
